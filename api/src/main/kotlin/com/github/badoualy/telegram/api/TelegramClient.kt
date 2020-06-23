@@ -1,6 +1,7 @@
 package com.github.badoualy.telegram.api
 
 import com.github.badoualy.telegram.api.utils.InputFileLocation
+import com.github.badoualy.telegram.mtproto.JMTProtoHandler
 import com.github.badoualy.telegram.mtproto.MTProtoHandler
 import com.github.badoualy.telegram.tl.api.*
 import com.github.badoualy.telegram.tl.api.auth.TLAuthorization
@@ -46,7 +47,7 @@ interface TelegramClient : TelegramApi {
      * @param timeout request timeout (applied on the observable)
      * @return an observable that will receive one unique item being the response
      */
-    fun <T : TLObject> queueMethod(method: TLMethod<T>, type: Int = MTProtoHandler.QUEUE_TYPE_DISCARD, validityTimeout: Long, timeout: Long): Observable<T>?
+    fun <T : TLObject> queueMethod(method: TLMethod<T>, type: Int = JMTProtoHandler.QUEUE_TYPE_DISCARD, validityTimeout: Long, timeout: Long): Observable<T>?
 
     fun getDownloaderClient(): TelegramClient
 

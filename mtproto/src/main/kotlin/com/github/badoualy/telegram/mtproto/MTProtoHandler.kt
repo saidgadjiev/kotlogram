@@ -84,13 +84,13 @@ class MTProtoHandler {
 
     fun startWatchdog() {
         logger.info(session.marker, "startWatchdog()")
-        MTProtoWatchdog.start(connection!!)
+        watchdog.start(connection!!)
                 .observeOn(Schedulers.computation())
                 .subscribe({ onMessageReceived(it) },
                            { onErrorReceived(it) })
     }
 
-    private fun stopWatchdog() = MTProtoWatchdog.stop(connection!!)
+    private fun stopWatchdog() = watchdog.stop(connection!!)
 
     /** Close the connection and re-open another one */
     @Throws(IOException::class)
@@ -647,6 +647,7 @@ class MTProtoHandler {
 
         private val logger = LoggerFactory.getLogger(MTProtoHandler::class.java)!!
 
+        private val watchdog = JMTProtoWatchdog()
         private val mtProtoContext = MTProtoContext
         private val apiContext = TLApiContext.getInstance()
 
@@ -663,7 +664,7 @@ class MTProtoHandler {
         @JvmStatic
         fun shutdown() {
             logger.warn("shutdown()")
-            MTProtoWatchdog.shutdown()
+            watchdog.shutdown()
             MTProtoTimer.shutdown()
         }
     }

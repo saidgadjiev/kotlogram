@@ -1,5 +1,6 @@
 package com.github.badoualy.telegram.api
 
+import com.github.badoualy.telegram.mtproto.JMTProtoHandler
 import com.github.badoualy.telegram.mtproto.MTProtoHandler
 import com.github.badoualy.telegram.mtproto.model.DataCenter
 import com.github.badoualy.telegram.mtproto.secure.RandomUtils
@@ -36,7 +37,7 @@ object Kotlogram {
         logger.warn("==================== SHUTTING DOWN ====================")
         TelegramClientPool.DEFAULT_POOL.shutdown()
         TelegramClientPool.DOWNLOADER_POOL.shutdown()
-        MTProtoHandler.shutdown()
+        JMTProtoHandler.shutdown()
         logger.warn("==================== SHUT DOWN DONE ====================")
     }
 
